@@ -5,7 +5,7 @@ const MovieCard = ({ image, title, year }) => {
 	return (
 		<Card>
 			<Image
-				src={`https://image.tmdb.org/t/p/w500/${image}`}
+				src={`https://image.tmdb.org/t/p/w342/${image}`}
 				wrapped
 				ui={false}
 			/>
