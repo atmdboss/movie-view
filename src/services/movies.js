@@ -5,8 +5,6 @@ const upcomingUrl = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_K
 
 const genresUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
 
-const singleMovieUrl = ``;
-
 const getUpcoming = async (page = "1") => {
 	const movies = await axios.get(`${upcomingUrl}${page}`);
 	return movies.data;
@@ -16,8 +14,9 @@ const getGenres = async () => {
 	return genres.data;
 };
 const getSingleMovie = async id => {
-	const movie = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US
-`);
+	const movie = await axios.get(
+		`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US&append_to_response=videos%2Ccredits%2Csimilar`
+	);
 	return movie.data;
 };
 

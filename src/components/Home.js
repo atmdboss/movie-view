@@ -1,27 +1,17 @@
 import React, { useEffect } from "react";
-import { Pagination } from "semantic-ui-react";
 import MovieCardList from "./MovieCardList";
-import { initUpcoming, changePageUpcoming } from "../reducers/movieReducer";
+import { initUpcoming } from "../reducers/movieReducer";
 import { connect } from "react-redux";
 
-const Home = ({ movies, initUpcoming, changePageUpcoming }) => {
+const Home = ({ movies, initUpcoming }) => {
 	useEffect(() => {
 		initUpcoming();
-	}, []);
-	const handlePageChange = (e, { activePage }) => {
-		// activePage is a default on Pagination and is auto-controlled by the component.
-		changePageUpcoming(activePage);
-	};
+	}, [initUpcoming]);
+
 	return (
 		<main>
-			<h2>Upcoming Movies</h2>
-			<MovieCardList movies={movies.results} />
-			<Pagination
-				siblingRange={2}
-				defaultActivePage={1}
-				totalPages={movies.total_pages}
-				onPageChange={handlePageChange}
-			/>
+			<h2 style={{ textAlign: "center" }}>Upcoming Movies</h2>
+			<MovieCardList movies={movies} />
 		</main>
 	);
 };
@@ -30,6 +20,4 @@ const mapStateToProps = ({ movies }) => {
 	return { movies: movies.upcoming };
 };
 
-export default connect(mapStateToProps, { initUpcoming, changePageUpcoming })(
-	Home
-);
+export default connect(mapStateToProps, { initUpcoming })(Home);

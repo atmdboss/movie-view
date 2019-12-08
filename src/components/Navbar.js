@@ -9,7 +9,7 @@ import { initGenres } from "../reducers/genreReducer";
 const Navbar = ({ search, genres, initGenres }) => {
 	useEffect(() => {
 		initGenres();
-	}, []);
+	}, [initGenres]);
 	const handleSubmit = event => {
 		event.preventDefault();
 		// searchMovie(search);
@@ -19,7 +19,7 @@ const Navbar = ({ search, genres, initGenres }) => {
 		store.dispatch(searchUpdate(event));
 	};
 	return (
-		<Menu>
+		<Menu style={{ marginBottom: 0 }} as='nav'>
 			<Menu.Item as={Link} to='/' name='Home' />
 			<Dropdown item text='Movies'>
 				<Dropdown.Menu>
