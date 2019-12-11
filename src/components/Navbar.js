@@ -4,28 +4,50 @@ import { searchUpdate } from "../reducers/searchReducer";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { store } from "../store";
+import { withRouter } from "react-router-dom";
 import { initGenres } from "../reducers/genreReducer";
+import { setCategory } from "../reducers/categoryReducer";
 
-const Navbar = ({ search, genres, initGenres }) => {
+const Navbar = ({ history, keyword, genres, initGenres }) => {
 	useEffect(() => {
 		initGenres();
 	}, [initGenres]);
 	const handleSubmit = event => {
 		event.preventDefault();
-		// searchMovie(search);
-		console.log(search);
+		history.push(`/search/${keyword}`);
+		// console.log(keyword);
 	};
 	const handleChange = event => {
 		store.dispatch(searchUpdate(event));
 	};
 	return (
 		<Menu style={{ marginBottom: 0 }} as='nav'>
-			<Menu.Item as={Link} to='/' name='Home' />
+			<Menu.Item
+				onClick={() => store.dispatch(setCategory("upcoming"))}
+				as={Link}
+				to='/'
+				name='Home'
+			/>
 			<Dropdown item text='Movies'>
 				<Dropdown.Menu>
-					<Dropdown.Item>Featured Movies</Dropdown.Item>
-					<Dropdown.Item>Popular Movies</Dropdown.Item>
-					<Dropdown.Item>Top Rated Movies</Dropdown.Item>
+					<Dropdown.Item
+						onClick={() => store.dispatch(setCategory("top_rated"))}
+						as={Link}
+						to='/category/top_rated'>
+						Top Rated Movies
+					</Dropdown.Item>
+					<Dropdown.Item
+						onClick={() => store.dispatch(setCategory("popular"))}
+						as={Link}
+						to='/category/popular'>
+						Popular Movies
+					</Dropdown.Item>
+					<Dropdown.Item
+						onClick={() => store.dispatch(setCategory("now_playing"))}
+						as={Link}
+						to='/category/now_playing'>
+						Now Playing
+					</Dropdown.Item>
 				</Dropdown.Menu>
 			</Dropdown>
 			<Dropdown item text='Genres'>
@@ -45,7 +67,6 @@ const Navbar = ({ search, genres, initGenres }) => {
 							placeholder='Search...'
 							onChange={handleChange}
 						/>
-						{/* <Button type='submit' icon='search' /> */}
 					</Form>
 				</Menu.Item>
 			</Menu.Menu>
@@ -53,6 +74,7 @@ const Navbar = ({ search, genres, initGenres }) => {
 	);
 };
 const mapStateToProps = ({ search, genres }) => {
-	return { search, genres };
+	return { keyword: search.keyword, genres };
 };
-export default connect(mapStateToProps, { initGenres })(Navbar);
+const NavRoute = withRouter(Navbar);
+export default connect(mapStateToProps, { initGenres })(NavRoute);

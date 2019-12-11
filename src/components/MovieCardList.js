@@ -1,14 +1,14 @@
 import React from "react";
 import MovieCard from "./MovieCard";
 import { Link } from "react-router-dom";
-import { changePageUpcoming } from "../reducers/movieReducer";
+import { changePageCategory } from "../reducers/movieReducer";
 import { connect } from "react-redux";
 import { Grid, Item, Pagination } from "semantic-ui-react";
 
-const MovieCardList = ({ movies, changePageUpcoming }) => {
+const MovieCardList = ({ movies, category, changePageCategory }) => {
 	const handlePageChange = (e, { activePage }) => {
 		// activePage is a default on Pagination and is auto-controlled by the component.
-		changePageUpcoming(activePage);
+		changePageCategory(category, activePage);
 	};
 	return (
 		<>
@@ -34,5 +34,7 @@ const MovieCardList = ({ movies, changePageUpcoming }) => {
 		</>
 	);
 };
-
-export default connect(null, { changePageUpcoming })(MovieCardList);
+const mapStateToProps = ({ category }) => {
+	return { category };
+};
+export default connect(mapStateToProps, { changePageCategory })(MovieCardList);

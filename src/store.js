@@ -5,19 +5,24 @@ import searchReducer from "./reducers/searchReducer";
 import genreReducer from "./reducers/genreReducer";
 import movieReducer from "./reducers/movieReducer";
 import singleMovieReducer from "./reducers/singleMovieReducer";
+import singleGenreReducer from "./reducers/singleGenreReducer";
+import categoryReducer from "./reducers/categoryReducer";
 import thunk from "redux-thunk";
 import { combineReducers } from "redux";
 
-const persistConfig = {
-	key: "root",
-	storage
-};
 const reducer = combineReducers({
 	search: searchReducer,
 	movies: movieReducer,
 	genres: genreReducer,
-	singleMovie: singleMovieReducer
+	singleMovie: singleMovieReducer,
+	category: categoryReducer,
+	singleGenre: singleGenreReducer
 });
+const persistConfig = {
+	key: "root",
+	storage,
+	whitelist: []
+};
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 

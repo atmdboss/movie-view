@@ -1,12 +1,13 @@
 import services from "../services/movies";
 
-export const initUpcoming = () => {
+export const initCategory = category => {
 	return async dispatch => {
 		try {
-			const data = await services.getUpcoming();
+			const data = await services.getCategory(category);
 			dispatch({
-				type: "UPDATE_UPCOMING",
-				data
+				type: "UPDATE_MOVIE",
+				data,
+				category
 			});
 		} catch (error) {
 			console.log(error);
@@ -14,13 +15,14 @@ export const initUpcoming = () => {
 	};
 };
 
-export const changePageUpcoming = page => {
+export const changePageCategory = (category, page) => {
 	return async dispatch => {
 		try {
-			const data = await services.getUpcoming(page.toString());
+			const data = await services.getCategory(category, page.toString());
 			dispatch({
-				type: "UPDATE_UPCOMING",
-				data
+				type: "UPDATE_MOVIE",
+				data,
+				category
 			});
 		} catch (error) {
 			console.log(error);
@@ -29,17 +31,16 @@ export const changePageUpcoming = page => {
 };
 
 const movies = {
-	topRated: "",
+	top_rated: "",
 	popular: "",
-	featured: "",
+	now_playing: "",
 	upcoming: ""
 };
 const movieReducer = (state = movies, action) => {
 	switch (action.type) {
-		case "UPDATE_UPCOMING":
-			return { ...state, upcoming: action.data };
+		case "UPDATE_MOVIE":
+			return { ...state, [action.category]: action.data };
 			break;
-
 		default:
 			return state;
 			break;

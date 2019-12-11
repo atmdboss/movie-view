@@ -17,6 +17,7 @@ const singleMovieReducer = (state = "", action) => {
 			break;
 		case "UNSET_MOVIE":
 			return "";
+			break;
 		default:
 			return state;
 			break;
