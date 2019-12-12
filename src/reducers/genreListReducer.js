@@ -2,7 +2,7 @@ import services from "../services/movies";
 export const initGenres = () => {
 	return async dispatch => {
 		try {
-			const data = await services.getGenres();
+			const data = await services.getGenreList();
 			dispatch({
 				type: "SET_GENRES",
 				data: data.genres
@@ -13,7 +13,7 @@ export const initGenres = () => {
 	};
 };
 
-const genreReducer = (state = [], action) => {
+const genreListReducer = (state = [], action) => {
 	switch (action.type) {
 		case "SET_GENRES":
 			return action.data;
@@ -24,4 +24,4 @@ const genreReducer = (state = [], action) => {
 	}
 };
 
-export default genreReducer;
+export default genreListReducer;

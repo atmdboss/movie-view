@@ -3,7 +3,7 @@ const API_KEY = "dd0e35d1fcb28d0e90e8bc65999b099b";
 
 // const upcomingUrl = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=`;
 
-const genresUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
+const genreListUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
 
 const getCategory = async (category, page = "1") => {
 	const movies = await axios.get(
@@ -11,9 +11,9 @@ const getCategory = async (category, page = "1") => {
 	);
 	return movies.data;
 };
-const getGenres = async () => {
-	const genres = await axios.get(genresUrl);
-	return genres.data;
+const getGenreList = async () => {
+	const genreList = await axios.get(genreListUrl);
+	return genreList.data;
 };
 const getSingleMovie = async id => {
 	const movie = await axios.get(
@@ -21,9 +21,9 @@ const getSingleMovie = async id => {
 	);
 	return movie.data;
 };
-const getSingleGenre = async id => {
-	const genreUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${id}`;
-	const genre = await axios.get(`${genreUrl}`);
+const getSingleGenre = async (id, page = "1") => {
+	const genreUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${id}`;
+	const genre = await axios.get(genreUrl);
 	return genre.data;
 };
 const searchMovies = async (keyword, page = "1") => {
@@ -34,7 +34,7 @@ https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&quer
 
 export default {
 	getCategory,
-	getGenres,
+	getGenreList,
 	getSingleMovie,
 	getSingleGenre,
 	searchMovies

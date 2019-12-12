@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import MoviesCategory from "./components/MoviesCategory";
-import MovieCardList from "./components/MovieCardList";
 import MoviesGenre from "./components/MoviesGenre";
 import Search from "./components/Search";
 import MovieDetails from "./components/MovieDetails";

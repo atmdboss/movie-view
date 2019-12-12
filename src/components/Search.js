@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import { searchMovie } from "../reducers/searchReducer";
+import { searchMovie, clearSearch } from "../reducers/searchReducer";
 import MovieCardList from "./MovieCardList";
 import { connect } from "react-redux";
+import { store } from "../store";
 
 const Search = ({ search, searchMovie }) => {
 	useEffect(() => {
 		searchMovie(search.keyword);
+		return () => store.dispatch(clearSearch());
 	}, []);
 	if (!search.movies) return null;
 	return (

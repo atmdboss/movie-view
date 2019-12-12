@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import MovieCardList from "./MovieCardList";
-import { initSingleGenre } from "../reducers/singleGenreReducer";
+import { initSingleGenre, unsetGenre } from "../reducers/singleGenreReducer";
 import { connect } from "react-redux";
+import { store } from "../store";
 
-const MoviesGenre = ({ id, singleGenre }) => {
+const MoviesGenre = ({ id, singleGenre, initSingleGenre }) => {
 	useEffect(() => {
 		// todo - seems not to be working
 		initSingleGenre(id);
+		return () => store.dispatch(unsetGenre());
 	}, [initSingleGenre, id]);
 	if (!singleGenre) return null;
 	return (

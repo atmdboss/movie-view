@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { store } from "../store";
 import { withRouter } from "react-router-dom";
-import { initGenres } from "../reducers/genreReducer";
+import { initGenres } from "../reducers/genreListReducer";
 import { setCategory } from "../reducers/categoryReducer";
 
 const Navbar = ({ history, keyword, genres, initGenres }) => {
@@ -15,7 +15,6 @@ const Navbar = ({ history, keyword, genres, initGenres }) => {
 	const handleSubmit = event => {
 		event.preventDefault();
 		history.push(`/search/${keyword}`);
-		// console.log(keyword);
 	};
 	const handleChange = event => {
 		store.dispatch(searchUpdate(event));
@@ -64,6 +63,7 @@ const Navbar = ({ history, keyword, genres, initGenres }) => {
 					<Form onSubmit={handleSubmit}>
 						<Input
 							icon='search'
+							value={keyword}
 							placeholder='Search...'
 							onChange={handleChange}
 						/>

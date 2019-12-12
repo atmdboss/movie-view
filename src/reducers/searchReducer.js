@@ -5,10 +5,29 @@ export const searchUpdate = event => {
 		data: event.target.value
 	};
 };
+export const clearSearch = () => {
+	return {
+		type: "UPDATE_SEARCH_KEYWORD",
+		data: ""
+	};
+};
 export const searchMovie = keyword => {
 	return async dispatch => {
 		const data = await services.searchMovies(keyword);
 		dispatch({ type: "UPDATE_SEARCH_MOVIES", data });
+	};
+};
+export const changePageSearch = (keyword, page) => {
+	return async dispatch => {
+		try {
+			const data = await services.searchMovies(keyword, page);
+			dispatch({
+				type: "UPDATE_SEARCH_MOVIES",
+				data
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
 
@@ -21,7 +40,7 @@ const searchreducer = (state = { keyword: "", movies: "" }, action) => {
 			return { ...state, movies: action.data };
 			break;
 		default:
-			return "";
+			return state;
 			break;
 	}
 };
